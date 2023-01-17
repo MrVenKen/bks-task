@@ -22,7 +22,8 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BaseView<LoginViewModel>(
+      builder: (BuildContext context, LoginViewModel model, Widget? child) => Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         // ignore: prefer_const_literals_to_create_immutables
@@ -67,9 +68,22 @@ class _LoginViewState extends State<LoginView> {
           height: Get.height * 0.02,
         ),
         ElevatedButton(
-          onPressed: () {},
-         child: Text("Giriş Yap / Kayıt Ol"))
+          onPressed: () async {
+            await model.registerInEmail(_email.text, _password.text);
+          },
+         child: Text("Kayıt Ol")),   
+        SizedBox(
+          height: Get.height * 0.02,
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            final loginSuccess = await model.signInWithEmailAndPassword(_email.text, _password.text);
+            if(loginSuccess){
+              await Navigator.pushReplacementNamed(context, '/');
+            }
+          },
+         child: Text("Giriş Yap"))
       ]),
-    );
+    ));
   }
 }

@@ -30,9 +30,11 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   provider:
+  kartal: 
   get: 
   firebase_auth: 
   firebase_core: 
+  cloud_firestore:  
   get_it: 
   flutter:
     sdk: flutter
